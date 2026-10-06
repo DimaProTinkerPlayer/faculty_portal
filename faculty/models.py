@@ -47,7 +47,7 @@ class ExchangeProgram(models.Model):
     university_name = models.CharField(max_length=200, verbose_name="University")
     country = models.CharField(max_length=200, verbose_name="Country")
     languages = models.CharField(max_length=200, verbose_name="Study languages")
-    seats = models.CharField(max_length=200, verbose_name="Number of Seats")
+    seats = models.PositiveIntegerField(verbose_name="Number of Seats")
     deadline = models.DateField(verbose_name="Deadline")
     description = models.TextField(verbose_name="Program Description")
 
