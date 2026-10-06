@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import date
 
 class FacultyInfo(models.Model):
     name = models.CharField(max_length=200, verbose_name="Faculty Name")
@@ -27,9 +28,9 @@ class Program(models.Model):
 
     def short_description(self):
         words = self.description.split()
-        if len(words) > 1:
+        if len(words) > 50:
             return " ".join(words[:50]) + "..."
-        return words[:50] + "..."
+        return self.description
 
     def __str__(self):
         return self.title
@@ -51,7 +52,15 @@ class ExchangeProgram(models.Model):
     deadline = models.DateField(verbose_name="Deadline")
     description = models.TextField(verbose_name="Program Description")
 
+    @property
+    def is_active(self):
+        return self.deadline >= date.today()
+
+    @property
+    def status_label(self):
+        return "availible" if self.is_active else "Not available"
+
     def __str__(self):
-        return f'{self.university_name} ({self.country})'
+        return f"{self.university_name} ({self.country})"
 
 
