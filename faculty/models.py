@@ -42,3 +42,15 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.full_name
+
+class ExchangeProgram(models.Model):
+    university = models.CharField(max_length=200, verbose_name="University with country")
+    languages = models.CharField(max_length=200, verbose_name="Study languages")
+    seats = models.CharField(max_length=200, verbose_name="Number of Seats")
+    deadline = models.DateField(verbose_name="Deadline")
+    description = models.TextField(verbose_name="Program Description")
+
+    def __str__(self):
+        return self.university
+
+
