@@ -27,6 +27,8 @@ class Program(models.Model):
 
     def short_description(self):
         words = self.description.split()
+        if len(words) > 1:
+            return " ".join(words[:50]) + "..."
         return words[:50] + "..."
 
     def __str__(self):
