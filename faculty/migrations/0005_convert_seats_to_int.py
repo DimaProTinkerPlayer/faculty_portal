@@ -19,7 +19,7 @@ def convert_seats_to_str(apps,shema_editor):
 
     for program in ExchangeProgram.objects.all():
         program.seats_str= str(program.seats)
-        program.save(update_fields=['seats_str'])
+        program.save(update_fields=['seats'])
 
 class Migration(migrations.Migration):
 
@@ -28,11 +28,13 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(model_name='exchangeprogram',name='seats_int',field=models.PositiveIntegerField(null=True, verbose_name='Number of Seats'),),
+        migrations.AddField(model_name='exchangeprogram',name='seats_int',field=models.PositiveIntegerField(default = 0, verbose_name='Number of Seats'),),
+
+        migrations.AlterField(model_name='exchangeprogram',name='seats',field=models.CharField(default = 0, verbose_name='Number of Seats'),),
 
         migrations.RunPython(code=convert_seats_to_int,reverse_code=convert_seats_to_str,),
 
-        migrations.AlterField(model_name='exchangeprogram',name='seats_int', field=models.PositiveIntegerField(verbose_name='Number of Seats'),),
+        migrations.AlterField(model_name='exchangeprogram',name='seats_int', field=models.PositiveIntegerField(verbose_name='Number of Seats'), preserve_default = False),
 
         migrations.RemoveField(model_name='exchangeprogram', name='seats',),
 

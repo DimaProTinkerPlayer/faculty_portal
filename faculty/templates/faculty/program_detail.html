@@ -1,0 +1,31 @@
+{% extends 'faculty/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm p-4">
+    <h2>{{ program.title }} (Спеціальність {{ program.code }})</h2>
+    <p class="text-muted">
+        Випускова кафедра:
+        {% if program.department %}
+            <a href="{% url 'faculty:department_detail' program.department.pk %}">
+                {{ program.department.title }}
+            </a>
+        {% else %}
+            <span>Не призначено</span>
+        {% endif     %}
+    </p>
+    <hr>
+
+    <h4>Повний опис програми</h4>
+    <p style="white-space: pre-line;">{{ program.description }}</p>
+
+    <h4 class="mt-4">Список дисциплін, що вивчаються</h4>
+    <div class="p-3 bg-light rounded" style="white-space: pre-line;">
+        {{ program.disciplines }}
+    </div>
+
+    <div class="mt-4 p-3 border rounded bg-white">
+        <h5>Контакти координатора набору:</h5>
+        <p class="mb-0"><strong>{{ program.coordinator_name }}</strong> — {{ program.coordinator_contact }}</p>
+    </div>
+</div>
+{% endblock %}
