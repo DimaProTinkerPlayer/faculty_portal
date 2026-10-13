@@ -45,8 +45,8 @@ class Teacher(models.Model):
         return self.full_name
 
 class ExchangeProgram(models.Model):
-    university_name = models.CharField(max_length=200, verbose_name="University")
-    country = models.CharField(max_length=200, verbose_name="Country")
+    university_name = models.CharField(max_length=255, verbose_name="University")
+    country = models.CharField(max_length=100, verbose_name="Country")
     languages = models.CharField(max_length=200, verbose_name="Study languages")
     seats = models.PositiveIntegerField(verbose_name="Number of Seats")
     deadline = models.DateField(verbose_name="Deadline")
