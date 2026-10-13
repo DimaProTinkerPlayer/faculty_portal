@@ -1,0 +1,40 @@
+{% extends 'faculty/base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        {% if faculty_info %}
+            <h1 class="mb-3">{{ faculty_info.name }}</h1>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">Про факультет</h4>
+                    <p class="card-text" style="white-space: pre-line;">{{ faculty_info.description }}</p>
+                </div>
+            </div>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-primary">Основна інформація</h4>
+                    <p class="card-text" style="white-space: pre-line;">{{ faculty_info.general_info }}</p>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                Інформація про факультет ще не заповнена в адмін-панелі. Будь ласка, додайте її через /admin/.
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow-sm border-primary">
+            <div class="card-header bg-primary text-white"><strong>Контакти</strong></div>
+            <div class="card-body">
+                {% if faculty_info %}
+                    <p style="white-space: pre-line;">{{ faculty_info.contact_info }}</p>
+                {% else %}
+                    <p class="text-muted">Контакти ще не додано.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

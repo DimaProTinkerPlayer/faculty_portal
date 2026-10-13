@@ -1,0 +1,27 @@
+{% extends 'faculty/base.html' %}
+
+{% block content %}
+<h2 class="mb-4">Кафедри факультету</h2>
+<div class="list-group shadow-sm">
+    {% for dept in departments %}
+        <div class="list-group-item p-3 mb-2 rounded border">
+            <h4>
+                <a href="{% url 'faculty:department_detail' dept.pk %}" class="text-decoration-none">
+                    {{ dept.title }}
+                </a>
+            </h4>
+            <p class="mb-2"><strong>Завідувач кафедри:</strong> {{ dept.head_name }}</p>
+            <div>
+                <strong>Випускова для спеціальностей:</strong>
+                {% for prog in dept.programs.all %}
+                    <span class="badge bg-primary">{{ prog.title }} ({{ prog.code }})</span>
+                {% empty %}
+                    <span class="text-muted">Немає закріплених спеціальностей</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% empty %}
+        <p>Кафедр поки немає.</p>
+    {% endfor %}
+</div>
+{% endblock %}

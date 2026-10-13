@@ -1,0 +1,58 @@
+{% extends 'faculty/base.html' %}
+
+{% block content %}
+<div class="card shadow-sm p-4 mb-4">
+    <h2>{{ department.title }}</h2>
+    <p class="lead"><strong>Завідувач кафедри:</strong> {{ department.head_name }}</p>
+    <hr>
+    <h5>Спеціальності, для яких кафедра є випусковою:</h5>
+    <ul>
+        {% for prog in department.programs.all %}
+            <li>
+                <a href="{% url 'faculty:program_detail' prog.pk %}">
+                    {{ prog.title }} ({{ prog.code }})
+                </a>
+            </li>
+        {% empty %}
+            {% for prog in department.program_set.all %}
+                <li>
+                    <a href="{% url 'faculty:program_detail' prog.pk %}">
+                        {{ prog.title }} ({{ prog.code }})
+                    </a>
+                </li>
+            {% empty %}
+                <li class="text-muted">Немає закріплених спеціальностей</li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</div>
+
+<h3>Викладацький склад</h3>
+<div class="row">
+    {% for teacher in department.teachers.all %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ teacher.full_name }}</h5>
+                    <p class="card-text mb-1"><strong>Посада:</strong> {{ teacher.position }}</p>
+                    <p class="card-text text-muted small"><strong>Ступінь:</strong> {{ teacher.degree }}</p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        {% for teacher in department.teacher_set.all %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ teacher.full_name }}</h5>
+                        <p class="card-text mb-1"><strong>Посада:</strong> {{ teacher.position }}</p>
+                        <p class="card-text text-muted small"><strong>Ступінь:</strong> {{ teacher.degree }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">Інформація про викладачів відсутня.</p>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}
