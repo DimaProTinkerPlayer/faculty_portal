@@ -14,8 +14,12 @@ def convert_seats_to_int(apps,shema_editor):
             program.seats_int = 0
         program.save(update_fields=['seats_int'])
 
-def convert_seats_to_str(apps,shema_editor):
+def convert_seats_to_str(apps, schema_editor):
     ExchangeProgram = apps.get_model('faculty', 'ExchangeProgram')
+
+    for program in ExchangeProgram.objects.all():
+        program.seats = str(program.seats_int)
+        program.save(update_fields=['seats'])
 
     for program in ExchangeProgram.objects.all():
         program.seats_str= str(program.seats)
